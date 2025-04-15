@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Github stuff -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- P5.js  -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+  
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #000000 !important; /* Dark background for the whole page */
+      color: #000000 !important; /* Text color to be visible on dark background */
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    .container-fluid {
+      background-color: #060623 !important; /* Dark background for the grid area */
+      color: #000000 !important; /* Text color for the grid area */
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .navbar {
+      margin-bottom: 20px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #ffffff !important; /* Ensures navbar link color is white */
+    }
+
+    h3 {
+      color: #ffffff;
+      text-align: left;
+      margin-left: -100px;
+    }
+    
+    .btn-start {
+      background-color: red; /* Red color for the button */
+      color: white; /* White text color */
+    }
+  </style>
+
+  <title>Pathfinder Visualizer</title>
+</head>
+
+<body>
+  <div class="container-fluid w-100 m-0 p-0" style="height: 100vh; background-color: #060623;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <h3><strong>Pathfinder Visualizer</strong></h3>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto nav-fill w-100 align-items-center">
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Select Algorithms
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#" onclick="dropdown(event)">A* Search</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)">Dijkstra</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)">Breadth First Search</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)">Depth First Search</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)">Greedy Best First Search</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)">Bidirectional Search</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-start my-2 my-sm-0" id="startButton" type="submit">Start</button>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#" onclick="resetCanvas()">Clear Board<span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid pt-4 pb-0">
+      <div class="row text-center" style="font-size: 23px;">
+        <div class="col-sm-6 col-md">
+          <!-- Color descriptions can be added here if needed -->
+        </div>
+      </div>
+      <div class="row align-items-center" style="min-height: 10px;">
+        <div class="col text-center">
+          <span id="message" style="font-style: italic;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="sketch01" style="position: relative; width: 100%; height: 100%;"> </div>
+    <i id="icon" class="fa-solid fa-star"></i> <!-- Font Awesome icon -->
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script type="text/javascript" src="algo.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
